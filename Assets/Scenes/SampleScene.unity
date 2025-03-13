@@ -339,6 +339,9 @@ MonoBehaviour:
   inventorySlotsArray: []
   maxItems: 50
   inventory: {fileID: 1545555676}
+  testItems:
+  - item: {fileID: 11400000, guid: 411893d16fac7774f8c9ee080ba369f2, type: 2}
+    quantity: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
