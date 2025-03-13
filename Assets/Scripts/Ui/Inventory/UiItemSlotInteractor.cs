@@ -3,18 +3,20 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
+public class UiItemSlotInteractor : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private CanvasGroup _canvasGroup;
     private RectTransform _rectTransform;
     private UiDragDropHandler handler;
     private InventoryItem item;
     private InventorySlot fromSlot;
-    private Action OnPointerDownCall = delegate { };
-    private Action OnMerge = delegate { };
+    private Action OnSplitCall = delegate { };
+    private Action<InventoryItem> OnConsumeCall = delegate { };
+    private Action OnMergeCall = delegate { };
     private Action OnDropAction = delegate { };
-    private Action OnEmpty = delegate { };
-    public void Init(InventorySlot slotedItem, Action OnPointerDown, Action OnMerge)
+    private Action OnEmptyCall = delegate { };
+    private Action<bool,string> OnMouseOverCall = delegate { };
+    public void Init(InventorySlot slotedItem, Action OnSplit, Action OnMerge, Action OnEmpty, Action<InventoryItem> OnConsume)
     {
         if (_rectTransform == null)
             _rectTransform = GetComponent<RectTransform>();
@@ -22,9 +24,15 @@ public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDrag
             _canvasGroup = GetComponent<CanvasGroup>();
 
         fromSlot = slotedItem;
-        this.item = slotedItem.GetItem();
-        OnPointerDownCall = OnPointerDown;
-        this.OnMerge = OnMerge;
+        item = slotedItem.GetItem();
+        OnSplitCall = OnSplit;
+        OnMergeCall = OnMerge;
+        OnEmptyCall = OnEmpty;
+        OnConsumeCall = OnConsume;
+    }
+    public void InitTooltip(Action<bool, string> OnShowTooltip)
+    {
+        OnMouseOverCall = OnShowTooltip;
     }
     public void SetEmpty()
     {
@@ -32,7 +40,7 @@ public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDrag
             return;
         fromSlot.RemoveItem();
         item = fromSlot.GetItem();
-        OnEmpty?.Invoke();
+        OnEmptyCall?.Invoke();
     }
     public void InitHandler(UiDragDropHandler handler)
     {
@@ -41,10 +49,6 @@ public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDrag
     public void SetOnDropAction(Action onDropAction)
     {
         this.OnDropAction = onDropAction;
-    }
-    public void SetOnEmpty(Action OnEmpty)
-    {
-        this.OnEmpty = OnEmpty;
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -67,7 +71,7 @@ public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDrag
         {
             InventoryItem itm = handler.GetItem();
             if (itm == item && fromSlot != handler.GetFromSlot())
-                OnMerge?.Invoke();
+                OnMergeCall?.Invoke();
             else
                 OnDropAction?.Invoke();
         }
@@ -89,8 +93,23 @@ public class UiDragDropableItem : MonoBehaviour, IPointerDownHandler, IBeginDrag
     {
         if (eventData.button == PointerEventData.InputButton.Middle)
         {
-            OnPointerDownCall?.Invoke();
+            OnSplitCall?.Invoke();
+        }
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            OnConsumeCall?.Invoke(item);
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        bool hasItem = item != InventoryItem.Null;
+        string description = hasItem ? item.item.description : "";
+        OnMouseOverCall?.Invoke(hasItem, description);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouseOverCall?.Invoke(false, "");
+    }
 }

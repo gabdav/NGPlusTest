@@ -178,7 +178,6 @@ public class Inventory : MonoBehaviour
         }
     }
     public bool IsInventorySpaceAvailable => _itemList.Count < MaxSlots;
-    public List<InventoryItem> GetItemList() { return _itemList; }
     public InventorySlot[] GetInventorySlots() { return inventorySlotsArray; }
     public InventoryItem FindItem(InventoryItem item)
     {

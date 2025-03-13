@@ -21,7 +21,4 @@ public class UiItemVisualPreview : MonoBehaviour
         }
 
     }
-    public void UpdateTooltip(string s)
-    {
-    }
 }

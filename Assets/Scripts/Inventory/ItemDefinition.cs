@@ -6,4 +6,11 @@ public class ItemDefinition : ScriptableObject
     public string title;
     public Sprite icon;
     public GameObject prefab;
+    public string description;
+    public ItemType type;
+}
+public enum ItemType
+{
+    Consumable,
+    Equipable
 }

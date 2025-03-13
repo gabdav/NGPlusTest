@@ -2,15 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UiInventory : MonoBehaviour
 {
     private Inventory _inventory;
     [SerializeField] private Transform inventoryItemContainer;
-    [SerializeField] private UiInventoryDropableItem inventoryItem;
+    [SerializeField] private UiSlotController inventoryItem;
     [SerializeField] private UiDragDropHandler handler;
-    private List<UiInventoryDropableItem> spanwedInventoryCells = new();
+    [SerializeField] private UiTooltip tooltip;
+    private List<UiSlotController> spanwedInventoryCells = new();
     public void SetInventory(Inventory inventory)
     {
         _inventory = inventory;
@@ -24,13 +26,13 @@ public class UiInventory : MonoBehaviour
     }
     private void GenerateSlots()
     {
-        foreach (Transform c in inventoryItemContainer)//TEMP
+        foreach (Transform c in inventoryItemContainer)
             Destroy(c.gameObject);
         foreach (InventorySlot inventorySlot in _inventory.GetInventorySlots())
         {
             Transform itemSpawnLocation = inventoryItemContainer;
 
-            UiInventoryDropableItem spawnedItem = Instantiate(inventoryItem, itemSpawnLocation).GetComponent<UiInventoryDropableItem>();
+            UiSlotController spawnedItem = Instantiate(inventoryItem, itemSpawnLocation).GetComponent<UiSlotController>();
             spawnedItem.TriggerVisuals(false);
             spanwedInventoryCells.Add(spawnedItem);
         }
@@ -40,30 +42,42 @@ public class UiInventory : MonoBehaviour
     {
         foreach (InventorySlot inventorySlot in _inventory.GetInventorySlots())
         {
-            spanwedInventoryCells[inventorySlot.GetIndex()].InitHandler(handler);
+            spanwedInventoryCells[inventorySlot.GetIndex()].GetSlot().InitHandler(handler);
             if (!inventorySlot.IsEmpty())
             {
                 spanwedInventoryCells[inventorySlot.GetIndex()].TriggerVisuals(true);
-                spanwedInventoryCells[inventorySlot.GetIndex()].Init(inventorySlot.GetItem());
-                spanwedInventoryCells[inventorySlot.GetIndex()].SetupDrag(inventorySlot,
+                spanwedInventoryCells[inventorySlot.GetIndex()].InitVisual(inventorySlot.GetItem());
+                spanwedInventoryCells[inventorySlot.GetIndex()].GetSlot().Init(inventorySlot,
                     () => { SplitStack(inventorySlot); },
                     () =>
                     {
                         _inventory.MergeItem(handler.GetItem(), inventorySlot, handler.GetFromSlot());
                         handler.Hide();
-                    });
+                    },null, OnConsumeItem);
             }
             else
             {
-                spanwedInventoryCells[inventorySlot.GetIndex()].SetEmpty();
+                spanwedInventoryCells[inventorySlot.GetIndex()].GetSlot().SetEmpty();
                 spanwedInventoryCells[inventorySlot.GetIndex()].TriggerVisuals(false);
             }
-            spanwedInventoryCells[inventorySlot.GetIndex()].SetOnDropAction(() =>
+            spanwedInventoryCells[inventorySlot.GetIndex()].GetSlot().InitTooltip(tooltip.DisplayTooltip);
+
+            spanwedInventoryCells[inventorySlot.GetIndex()].GetSlot().SetOnDropAction(() =>
             {
                 _inventory.TransferItem(handler.GetItem(), inventorySlot, handler.GetFromSlot());
                 handler.Hide();
             });
         }
+    }
+    private void OnConsumeItem(InventoryItem item)
+    {
+        InventoryItem tempItem = new()
+        {
+            item = item.item,
+            quantity = 1
+        };
+        _inventory.SubstractFromItem(tempItem);
+        Debug.Log("Consume " + item.item.type);
     }
     private void SplitStack(InventorySlot inventorySlot)
     {

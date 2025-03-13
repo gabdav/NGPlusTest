@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   title: Sword
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5d27e02e8bc86224c9adb9d24930deba, type: 3}
+  prefab: {fileID: 5159968865438712113, guid: df1b288d3a26ea24ba9b45091453cf72, type: 3}
+  description: Used for slashing
+  type: 1
