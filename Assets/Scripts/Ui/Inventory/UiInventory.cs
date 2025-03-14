@@ -12,6 +12,7 @@ public class UiInventory : MonoBehaviour
     [SerializeField] private UiSlotController inventoryItem;
     [SerializeField] private UiDragDropHandler handler;
     [SerializeField] private UiTooltip tooltip;
+    [SerializeField] private TextMeshProUGUI consumedText;
     private List<UiSlotController> spanwedInventoryCells = new();
     public void SetInventory(Inventory inventory)
     {
@@ -78,6 +79,7 @@ public class UiInventory : MonoBehaviour
         };
         _inventory.SubstractFromItem(tempItem);
         Debug.Log("Consume " + item.item.type);
+        consumedText.text = item.item.type + " used.";
     }
     private void SplitStack(InventorySlot inventorySlot)
     {

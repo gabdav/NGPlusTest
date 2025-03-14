@@ -86,6 +86,15 @@ public class Inventory : MonoBehaviour
         }
         AddNewItem(item);
     }
+    public void AddItemViaButton(ItemDefinition newItem)
+    {
+        InventoryItem item = new()
+        {
+            item = newItem,
+            quantity = 1
+        };
+        AddItem(item);
+    }
     public void MergeItem(InventoryItem itemToMerge, InventorySlot toSlot, InventorySlot fromSlot)
     {
         if (!itemToMerge.Equals(toSlot.GetItem()))
@@ -96,11 +105,12 @@ public class Inventory : MonoBehaviour
             item = itemToMerge.item,
             quantity = itemToMerge.quantity + presentItem.quantity
         };
+        toSlot.RemoveItem();
         TransferItem(newItem, toSlot, fromSlot);
     }
     public void TransferItem(InventoryItem item, InventorySlot toSlot, InventorySlot fromSlot)
     {
-        if (fromSlot == null || toSlot == null || item == InventoryItem.Null)
+        if (fromSlot == null || toSlot == null || item == InventoryItem.Null || !toSlot.IsEmpty())
             return;
         fromSlot.RemoveItem();
         toSlot.SetItem(item);

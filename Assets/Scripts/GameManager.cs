@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
             uiManager.TriggerInventory();
         }
     }
+    public Inventory GetPlayerInventory()
+    {
+        return playerInventory;
+    }
     public void OnSave()
     {
         saveManager.SaveInventory(playerInventory);
