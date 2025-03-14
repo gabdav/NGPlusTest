@@ -7,10 +7,13 @@ using UnityEngine;
 public class SaveManager : MonoBehaviour
 {
     public ItemDefinition[] allItemDefinitions;
+    string saveFilePath = Path.Combine(Application.dataPath, "Saves", "inventory.json");
     public void SaveInventory(Inventory inv)
     {
-        string saveFilePath = Path.Combine(Application.dataPath, "Saves", "inventory.json");
-        // Convert inventory slots to serializable format
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "inventory.json");
+#if UNITY_EDITOR
+        saveFilePath = Path.Combine(Application.dataPath, "Saves", "inventory.json");
+#endif
         InventorySaveData saveData = new InventorySaveData();
         saveData.slots = new SerializableInventorySlot[inv.inventorySlotsArray.Length];
 
@@ -19,7 +22,6 @@ public class SaveManager : MonoBehaviour
             SerializableInventorySlot serialSlot = new SerializableInventorySlot();
             serialSlot.index = inv.inventorySlotsArray[i].GetIndex();
 
-            // Only save if there's an item
             if (inv.inventorySlotsArray[i].GetItem().item != null)
             {
                 serialSlot.item = new SerializableInventoryItem
@@ -40,7 +42,10 @@ public class SaveManager : MonoBehaviour
     // Method to load inventory
     public void LoadInventory(Inventory inv)
     {
-        string saveFilePath = Path.Combine(Application.dataPath, "Saves", "inventory.json");
+        string saveFilePath = Path.Combine(Application.persistentDataPath, "inventory.json");
+#if UNITY_EDITOR
+        saveFilePath = Path.Combine(Application.dataPath, "Saves", "inventory.json");
+#endif        
         if (System.IO.File.Exists(saveFilePath))
         {
             string jsonData = System.IO.File.ReadAllText(saveFilePath);
