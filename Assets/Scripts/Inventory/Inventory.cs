@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using static UnityEditor.Progress;
 
 [Serializable]
 public class Inventory : MonoBehaviour
@@ -10,9 +11,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private int maxItems = 10;
     private List<InventoryItem> _itemList;
     [SerializeField]  UiInventory inventory;
-    [SerializeField] List<InventoryItem> testItems;
     public int MaxSlots { get { return maxItems; } }
-    public void Start()
+    public void Init()
     {
         _itemList = new List<InventoryItem>();
         inventorySlotsArray = new InventorySlot[maxItems];
@@ -22,7 +22,6 @@ public class Inventory : MonoBehaviour
         }
         inventory.SetInventory(this);
         inventory.Init();
-        InitInventory(testItems);
     }
     public void InitInventory(List<InventoryItem> testItems)
     {
@@ -57,12 +56,7 @@ public class Inventory : MonoBehaviour
         {
             if (_itemList[i].Equals(item))
             {
-                InventoryItem tempItem = new()
-                {
-                    item = _itemList[i].item,
-                    quantity = _itemList[i].quantity + item.quantity
-                };
-                _itemList[i] = tempItem;
+                IncreaseQuant(i, item);
                 GetEmptyInventorySlot().SetItem(item);
                 OnItemListChanged?.Invoke();
                 return;
@@ -86,12 +80,7 @@ public class Inventory : MonoBehaviour
         {
             if (_itemList[i].Equals(item))
             {
-                InventoryItem tempItem = new()
-                {
-                    item = _itemList[i].item,
-                    quantity = _itemList[i].quantity + item.quantity
-                };
-                _itemList[i] = tempItem;
+                IncreaseQuant(i, item);
                 GetInUseInventorySlot(item).SetItem(_itemList[i]);
                 OnItemListChanged?.Invoke();
                 return;
@@ -153,12 +142,7 @@ public class Inventory : MonoBehaviour
         {
             if (_itemList[i].Equals(item))
             {
-                InventoryItem tempItem2 = new()
-                {
-                    item = item.item,
-                    quantity = _itemList[i].quantity - item.quantity
-                };
-                _itemList[i] = tempItem2;
+                DecreaseQuant(i, item);
             }
         }
 
@@ -179,27 +163,58 @@ public class Inventory : MonoBehaviour
     }
     public bool IsInventorySpaceAvailable => _itemList.Count < MaxSlots;
     public InventorySlot[] GetInventorySlots() { return inventorySlotsArray; }
-    public InventoryItem FindItem(InventoryItem item)
+    public List<InventoryItem> GetItemList() { return _itemList; }
+    public void SyncListWithSlots()
     {
-        InventoryItem requestedItem = InventoryItem.Null;
-        foreach (InventoryItem itemInInv in _itemList)
+        for(int i = 0;i < inventorySlotsArray.Length; i++)
         {
-            if (itemInInv == item)
+            if (inventorySlotsArray[i].GetItem() != InventoryItem.Null)
             {
-                if (requestedItem != item)
+                InventoryItem tempItem = inventorySlotsArray[i].GetItem();
+                if(_itemList.Count == 0)
                 {
-                    requestedItem = new()
+                    _itemList.Add(tempItem);
+                    continue;
+                }
+                int index = -1;
+                foreach(var item in _itemList)
+                {
+                    if (item.item == tempItem.item)
                     {
-                        item = itemInInv.item,
-                        quantity = itemInInv.quantity
-                    };
+                        index = _itemList.IndexOf(tempItem);
+                        break;
+                    }                   
+                }
+                if(index >= 0)
+                {
+                    IncreaseQuant(index, tempItem);
                 }
                 else
                 {
-                    requestedItem.quantity += itemInInv.quantity;
+                    _itemList.Add(tempItem);
                 }
+
+                
             }
         }
-        return requestedItem;
+        OnItemListChanged?.Invoke();
+    }
+    private void IncreaseQuant(int index , InventoryItem item)
+    {
+        InventoryItem tempItem = new()
+        {
+            item = _itemList[index].item,
+            quantity = _itemList[index].quantity + item.quantity
+        };
+        _itemList[index] = tempItem;
+    }
+    private void DecreaseQuant(int index, InventoryItem item)
+    {
+        InventoryItem tempItem = new()
+        {
+            item = _itemList[index].item,
+            quantity = _itemList[index].quantity - item.quantity
+        };
+        _itemList[index] = tempItem;
     }
 }

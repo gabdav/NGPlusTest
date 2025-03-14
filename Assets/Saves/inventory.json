@@ -1,0 +1,354 @@
+{
+    "slots": [
+        {
+            "index": 0,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 1,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 2,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 3,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 4,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 5,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 6,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 7,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 8,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 9,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 10,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 11,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 12,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 13,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 14,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 15,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 16,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 17,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 18,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 19,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 20,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 21,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 22,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 23,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 24,
+            "item": {
+                "itemID": "Sword",
+                "quantity": 3.0
+            }
+        },
+        {
+            "index": 25,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 26,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 27,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 28,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 29,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 30,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 31,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 32,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 33,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 34,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 35,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 36,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 37,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 38,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 39,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 40,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 41,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 42,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 43,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 44,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 45,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 46,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 47,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 48,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        },
+        {
+            "index": 49,
+            "item": {
+                "itemID": "",
+                "quantity": 0.0
+            }
+        }
+    ]
+}

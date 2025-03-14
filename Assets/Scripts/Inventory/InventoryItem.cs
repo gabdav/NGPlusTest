@@ -7,7 +7,7 @@ public struct InventoryItem
     public float quantity;
 
     public static InventoryItem Null = new InventoryItem { item = null, quantity = 0 };
-
+ 
     public static bool operator ==(InventoryItem c1, InventoryItem c2)
     {
         return c1.item == c2.item;
