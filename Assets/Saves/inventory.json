@@ -80,8 +80,8 @@
         {
             "index": 11,
             "item": {
-                "itemID": "",
-                "quantity": 0.0
+                "itemID": "Sword",
+                "quantity": 3.0
             }
         },
         {
@@ -171,8 +171,8 @@
         {
             "index": 24,
             "item": {
-                "itemID": "Sword",
-                "quantity": 3.0
+                "itemID": "",
+                "quantity": 0.0
             }
         },
         {

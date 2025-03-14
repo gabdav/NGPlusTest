@@ -6,12 +6,14 @@ public class UiManager : MonoBehaviour
 {
     [SerializeField] private UiInventory uiInventory;
 
-    public void Init()
+    public void InitInventory(Inventory inv)
     {
-
+        uiInventory.SetInventory(inv);
+        uiInventory.Init();
     }
-    public void TriggerInventory(bool trigger)
+    public void TriggerInventory()
     {
-        uiInventory.gameObject.SetActive(trigger);
+        uiInventory.gameObject.SetActive(!uiInventory.gameObject.activeSelf);
+        Cursor.visible = uiInventory.gameObject.activeSelf;
     }
 }

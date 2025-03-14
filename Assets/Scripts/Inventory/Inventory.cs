@@ -10,7 +10,6 @@ public class Inventory : MonoBehaviour
     public InventorySlot[] inventorySlotsArray;
     [SerializeField] private int maxItems = 10;
     private List<InventoryItem> _itemList;
-    [SerializeField]  UiInventory inventory;
     public int MaxSlots { get { return maxItems; } }
     public void Init()
     {
@@ -20,8 +19,7 @@ public class Inventory : MonoBehaviour
         {
             inventorySlotsArray[i] = new InventorySlot(i);
         }
-        inventory.SetInventory(this);
-        inventory.Init();
+
     }
     public void InitInventory(List<InventoryItem> testItems)
     {
